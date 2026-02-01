@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorry ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    }
+
+    .card {
+      width: 92%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 25px 18px;
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #d1003f;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 8px 0 20px;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    .btn-area {
+      position: relative;
+      height: 220px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      border-radius: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      transition: 0.25s ease;
+      width: 120px;
+      touch-action: manipulation;
+    }
+
+    #noBtn {
+      left: 50%;
+      top: 130px;
+      transform: translateX(-50%);
+      background: #00c853;
+      color: white;
+      box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
+    }
+
+    #yesBtn {
+      left: 50%;
+      top: 40px;
+      transform: translateX(-50%);
+      background: #ff1744;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 23, 68, 0.3);
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 14px;
+      background: #fff3f6;
+      border: 2px dashed #ff1744;
+      color: #d1003f;
+      font-size: 1rem;
+    }
+
+    .heart {
+      font-size: 2rem;
+      animation: beat 1s infinite;
+      display: inline-block;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>🥺 kya aap mujhe chhodke jaa rhe ho?</h1>
+    <p>
+      Main galti maan leta hoon 😔<br/>
+      Please gussa mat karo... tumhare bina main adhura hoon ❤️
+    </p>
+
+    <div class="btn-area" id="area">
+      <button id="yesBtn">Yes 😤</button>
+      <button id="noBtn">No ❤️</button>
+    </div>
+
+    <div class="message" id="msg">
+      <div class="heart">💖</div><br/><br/>
+      Thank you meri jaan 😭❤️<br/>
+      I promise main aapko kabhi hurt nahi karunga.<br/>
+      Please smile karo na 😘
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const area = document.getElementById("area");
+    const msg = document.getElementById("msg");
+  
+    // Make movement feel snappier
+    yesBtn.style.transition = "0.08s ease"; // faster than before
+  
+    function moveYesButton() {
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = yesBtn.getBoundingClientRect();
+  
+      const maxX = areaRect.width - btnRect.width;
+      const maxY = areaRect.height - btnRect.height;
+  
+      let newX = Math.random() * maxX;
+      let newY = Math.random() * maxY;
+  
+      yesBtn.style.left = `${newX}px`;
+      yesBtn.style.top = `${newY}px`;
+      yesBtn.style.transform = "translateX(0)";
+    }
+  
+    // For phone touch (very fast)
+    yesBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveYesButton();
+    });
+  
+    // For desktop hover
+    yesBtn.addEventListener("mouseenter", moveYesButton);
+  
+    // EXTRA: even faster escape when finger/mouse comes near the button
+    area.addEventListener("mousemove", (e) => {
+      const btnRect = yesBtn.getBoundingClientRect();
+      const distX = Math.abs(e.clientX - (btnRect.left + btnRect.width / 2));
+      const distY = Math.abs(e.clientY - (btnRect.top + btnRect.height / 2));
+  
+      if (distX < 90 && distY < 70) {
+        moveYesButton();
+      }
+    });
+  
+    area.addEventListener("touchmove", (e) => {
+      const touch = e.touches[0];
+      const btnRect = yesBtn.getBoundingClientRect();
+      const distX = Math.abs(touch.clientX - (btnRect.left + btnRect.width / 2));
+      const distY = Math.abs(touch.clientY - (btnRect.top + btnRect.height / 2));
+  
+      if (distX < 110 && distY < 90) {
+        moveYesButton();
+      }
+    });
+  
+    noBtn.addEventListener("click", () => {
+      msg.style.display = "block";
+      yesBtn.style.display = "none";
+      noBtn.innerText = "I Love You ❤️";
+      noBtn.style.background = "#ff4081";
+    });
+  </script>
+  
+</body>
+</html>
